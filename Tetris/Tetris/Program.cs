@@ -13,11 +13,10 @@ namespace Tetris
             Square s = new Square(7, 8, '*');
             s.Draw();
 
-            Point p1 = new Point(3, 2 , '*');
-            p1.Draw();
+            Line l = new Line(1, 1, '*');
+            l.Draw();
 
-            Point p2 = new Point(3, 3, '*');
-            p2.Draw();
+          
 
             Console.ReadLine();
 
