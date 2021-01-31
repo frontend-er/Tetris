@@ -10,13 +10,16 @@ namespace Tetris
             Console.SetWindowSize(40, 30);
             Console.SetBufferSize(40, 30);
 
-            Square s = new Square(7, 8, '*');
-            s.Draw();
+            Figure[] f = new Figure[2];
+            f[0] = new Square(7, 8, '*');
+            f[1] = new Line(1, 1, '*');
 
-            Line l = new Line(1, 1, '*');
-            l.Draw();
 
-          
+            foreach (Figure fig in f)
+            {
+                fig.Draw();
+            }
+
 
             Console.ReadLine();
 
