@@ -10,6 +10,8 @@ namespace Tetris
             Console.SetWindowSize(40, 30);
             Console.SetBufferSize(40, 30);
 
+            Square s = new Square(7, 8, '*');
+            s.Draw();
 
             Point p1 = new Point(3, 2 , '*');
             p1.Draw();
