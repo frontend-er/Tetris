@@ -11,16 +11,10 @@ namespace Tetris
             Console.SetBufferSize(40, 30);
 
 
-            Point p1 = new Point();
-            p1.x = 2;
-            p1.y = 3;
-            p1.c = '*';
+            Point p1 = new Point(3, 2 , '*');
             p1.Draw();
 
-            Point p2 = new Point();
-            p2.x = 3;
-            p2.y = 3;
-            p2.c = '*';
+            Point p2 = new Point(3, 3, '*');
             p2.Draw();
 
             Console.ReadLine();
