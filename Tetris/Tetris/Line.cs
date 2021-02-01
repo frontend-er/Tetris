@@ -15,32 +15,32 @@ namespace Tetris
             Draw();
         }
 
-        public override void Rotate()
+        public override void Rotate(Point[] clone)
         {
-            if (points[0].x == points[1].x)
-                RotateToHorizontal();
+            if (clone[0].X == clone[1].X)
+                RotateToHorizontal(clone);
             else
-                RotateToVertical();
+                RotateToVertical(clone);
         }
 
-        public void RotateToVertical()
+        public void RotateToVertical(Point[] clone)
         {
-            points[1].x -= 1;
-            points[1].y += 1;
-            points[2].x -= 2;
-            points[2].y += 2;
-            points[3].x -= 3;
-            points[3].y += 3;
+            clone[1].X -= 1;
+            clone[1].Y += 1;
+            clone[2].X -= 2;
+            clone[2].Y += 2;
+            clone[3].X -= 3;
+            clone[3].Y += 3;
         }
 
-        public void RotateToHorizontal()
+        public void RotateToHorizontal(Point[] clone)
         {
-            points[1].x += 1;
-            points[1].y -= 1;
-            points[2].x += 2;
-            points[2].y -= 2;
-            points[3].x += 3;
-            points[3].y -= 3;
+            clone[1].X += 1;
+            clone[1].Y -= 1;
+            clone[2].X += 2;
+            clone[2].Y -= 2;
+            clone[3].X += 3;
+            clone[3].Y -= 3;
         }
     }
 }

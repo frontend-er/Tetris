@@ -8,12 +8,15 @@ namespace Tetris
         static void Main(string[] args)
         {
 
-            Console.SetWindowSize(40, 30);
-            Console.SetBufferSize(40, 30);
+            Console.SetWindowSize(Field.Width, Field.Heigth);
+            Console.SetBufferSize(Field.Width, Field.Heigth);
+
+            Field.Width = 20;
 
 
 
-            FirureGenerator generator = new FirureGenerator(20, 0, '*');
+
+            FirureGenerator generator = new FirureGenerator(10, 0, '*');
             Figure currentFigure = generator.GetNewFigure();
 
 
@@ -43,6 +46,10 @@ namespace Tetris
                 case ConsoleKey.DownArrow:
                     currentFigure.TryMove(Direction.Down);
                     break;
+                case ConsoleKey.Spacebar:
+                    currentFigure.TryRotate();
+                    break;
+
 
             }
         }
