@@ -13,5 +13,33 @@ namespace Tetris
             points[2] = new Point(x, y + 2, c);
             points[3] = new Point(x, y + 3, c);
         }
+
+        public override void Rotate()
+        {
+            if (points[0].x == points[1].x)
+                RotateToHorizontal();
+            else
+                RotateToVertical();
+        }
+
+        public void RotateToVertical()
+        {
+            points[1].x -= 1;
+            points[1].y += 1;
+            points[2].x -= 2;
+            points[2].y += 2;
+            points[3].x -= 3;
+            points[3].y += 3;
+        }
+
+        public void RotateToHorizontal()
+        {
+            points[1].x += 1;
+            points[1].y -= 1;
+            points[2].x += 2;
+            points[2].y -= 2;
+            points[3].x += 3;
+            points[3].y -= 3;
+        }
     }
 }
