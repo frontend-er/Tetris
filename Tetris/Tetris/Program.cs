@@ -11,67 +11,31 @@ namespace Tetris
             Console.SetWindowSize(40, 30);
             Console.SetBufferSize(40, 30);
 
+
+
             FirureGenerator generator = new FirureGenerator(20, 0, '*');
-            Figure s = generator.GetNewFigure();
-            s.Draw();
-            Thread.Sleep(500);
-            s.Hide();
-            s.Rotate();
-            s.Draw();   
-            Thread.Sleep(500);
-            s.Hide();
-            s.Move(Direction.Down);
-            s.Draw();
-            Thread.Sleep(500);
-            s.Hide();
-            s.Rotate();
-            s.Draw();
-            Thread.Sleep(500);
-            s.Hide();
-            s.Move(Direction.Down);
-            s.Draw();
-            Thread.Sleep(500);
-            s.Hide();
-            s.Rotate();
-            s.Draw();
-            Thread.Sleep(500);
-            s.Hide();
-            s.Move(Direction.Down);
-            s.Draw();
-            Thread.Sleep(500);
-            s.Hide();
-            s.Rotate();
-            s.Draw();
-            Figure f = generator.GetNewFigure();
-            f.Draw();
-            Thread.Sleep(500);
-            f.Hide();
-            f.Rotate();
-            f.Draw();
-            Thread.Sleep(500);
-            f.Hide();
-            f.Move(Direction.Down);
-            f.Draw();
-            Thread.Sleep(500);
-            f.Hide();
-            f.Rotate();
-            f.Draw();
-            Thread.Sleep(500);
-            f.Hide();
-            f.Move(Direction.Down);
-            f.Draw();
-            Thread.Sleep(500);
-            f.Hide();
-            f.Rotate();
-            f.Draw();
-            Thread.Sleep(500);
-            f.Hide();
-            f.Move(Direction.Down);
-            f.Draw();
-            Thread.Sleep(500);
-            f.Hide();
-            f.Rotate();
-            f.Draw();
+            Figure s = null;
+
+
+            while (true)
+            {
+                FigureFall(s,generator);
+                s.Rotate();
+               
+            }
+            
+            static void FigureFall(Figure figure, FirureGenerator figGen)
+            {
+                figure = figGen.GetNewFigure();
+                figure.Draw();
+                for (int i = 0; i < 20; i++)
+                {
+                    figure.Hide();
+                    figure.Move(Direction.Down);
+                    figure.Draw();
+                    Thread.Sleep(750);
+                }
+            }
 
 
 
