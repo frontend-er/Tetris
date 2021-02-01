@@ -14,35 +14,37 @@ namespace Tetris
 
 
             FirureGenerator generator = new FirureGenerator(20, 0, '*');
-            Figure s = null;
+            Figure currentFigure = generator.GetNewFigure();
 
 
-            while (true)
-            {
-                FigureFall(s,generator);
-                s.Rotate();
-               
-            }
+                 while (true)
+                 {
+                    if (Console.KeyAvailable)
+                    {
+                        var key = Console.ReadKey();
+                        HandleKey(currentFigure, key);
+                    }
+                    
+                 }
             
-            static void FigureFall(Figure figure, FirureGenerator figGen)
+            
+        }
+
+        private static void HandleKey(Figure currentFigure, ConsoleKeyInfo key)
+        {
+            switch (key.Key)
             {
-                figure = figGen.GetNewFigure();
-                figure.Draw();
-                for (int i = 0; i < 20; i++)
-                {
-                    figure.Hide();
-                    figure.Move(Direction.Down);
-                    figure.Draw();
-                    Thread.Sleep(750);
-                }
+                case ConsoleKey.LeftArrow:
+                    currentFigure.TryMove(Direction.Left);
+                    break;
+                case ConsoleKey.RightArrow:
+                    currentFigure.TryMove(Direction.Right);
+                    break;
+                case ConsoleKey.DownArrow:
+                    currentFigure.TryMove(Direction.Down);
+                    break;
+
             }
-
-
-
-
-
-            Console.ReadLine();
-
         }
     }
 }

@@ -14,6 +14,8 @@ namespace Tetris
         {
             Console.SetCursorPosition(x, y);
             Console.Write(c);
+            Console.SetCursorPosition(0, 0);
+
         }
 
         public Point(int a, int b, char symb)
@@ -21,6 +23,14 @@ namespace Tetris
             x = a;
             y = b;
             c = symb;
+        }
+
+        public Point(Point point)
+        {
+            this.x = point.x;
+            this.y = point.y;
+            this.c = point.c;
+
         }
 
         internal void Hide()
