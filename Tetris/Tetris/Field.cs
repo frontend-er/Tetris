@@ -6,8 +6,8 @@ namespace Tetris
 {
     static class Field
     {
-        private static int _width = 40;
-        private static int _height = 30;
+        private static int _width = 20;
+        private static int _height = 20;
 
 
         public static int Width
@@ -20,8 +20,8 @@ namespace Tetris
             set
             {
                 _width = value;
-                Console.SetWindowSize(Field._width, Field.Heigth);
-                Console.SetBufferSize(Field._width, Field.Heigth);
+                Console.SetWindowSize(_width, Field.Heigth);
+                Console.SetBufferSize(_width, Field.Heigth);
             }
         }
 
@@ -43,7 +43,7 @@ namespace Tetris
 
         private static bool[][] _heap;
 
-        static Field()
+         static Field()
         {
             _heap = new bool[Heigth][];
             for (int i = 0; i < Heigth; i++)
@@ -52,16 +52,65 @@ namespace Tetris
             }
         }
 
+        public static void TryToDeleteLine()
+        {
+            for (int j = 0; j < Heigth; j++)
+            {
+                int counter = 0;
+
+                for (int i = 0; i < Width; i++)
+                {
+                    if (_heap[j][i])
+                        counter++;
+                }
+                if (counter == Width)
+                {
+                    DeleteLine(j);
+                    Redraw();
+                }
+            }
+        }
+
+        private static void Redraw()
+        {
+            for (int j = 0; j < Heigth; j++)
+            {
+                for (int i = 0; i < Width; i++)
+                {
+                    if (_heap[j][i])
+                        Drawer.DrawPoint(i, j);
+                    else
+                        Drawer.HidePoint(i, j);
+
+                }
+            }
+        }
+
+        private static void DeleteLine(int line)
+        {
+            for (int j = line; j >= 0; j--)
+            {
+                for (int i = 0; i < Width; i++)
+                {
+                    if (j == 0)
+                        _heap[j][i] = false;
+                    else
+                        _heap[j][i] = _heap[j - 1][i];
+
+                }
+            }
+        }
+
         public static bool CheckStrike(Point p)
         {
-            return _heap[p.X][p.Y];
+            return _heap[p.Y][p.X];
         }
 
         public static void AddFigure(Figure fig)
         {
             foreach (var p in fig.Points)
             {
-                _heap[p.X][p.Y] = true;
+                _heap[p.Y][p.X] = true;
             }
         }
 

@@ -13,13 +13,11 @@ namespace Tetris
             Console.SetWindowSize(Field.Width, Field.Heigth);
             Console.SetBufferSize(Field.Width, Field.Heigth);
 
-
-            Field.Heigth = 20;
-            Field.Width = 30;
+           
 
 
 
-            generator = new FirureGenerator(20, 0, '*');
+            generator = new FirureGenerator(Field.Width/2, 0, Drawer.DEFAULT_POINT);
             Figure currentFigure = generator.GetNewFigure();
 
 
@@ -39,6 +37,7 @@ namespace Tetris
             if (result == Result.HEAP_STRIKE || result == Result.DOWN_BORDER_STRIKE)
             {
                 Field.AddFigure(currentFigure);
+                Field.TryToDeleteLine();
                 currentFigure = generator.GetNewFigure();
                 return true;
 
