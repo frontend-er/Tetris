@@ -7,11 +7,11 @@ namespace Tetris
     abstract class Figure
     {
         const int numberPointsFigure = 4;
-        protected Point[] points = new Point[numberPointsFigure];
+        public Point[] Points = new Point[numberPointsFigure];
 
         public void Draw()
         {
-            foreach (Point p in points)
+            foreach (Point p in Points)
             {
                 p.Draw();
             }
@@ -19,34 +19,38 @@ namespace Tetris
 
         public void Hide ()
         {
-            foreach (Point p in points)
+            foreach (Point p in Points)
             {
                 p.Hide();
             }
         }
 
-        public void TryMove(Direction dir)
+        public Result TryMove(Direction dir)
         {
             Hide();
             var clone = Clone();
             Move(clone,dir);
 
-            if (VerifyPosition(clone)) 
-                points = clone;
-
-
+            var result = VerifyPosition(clone);
+            if (result == Result.SUCCESS) 
+                Points = clone;
             Draw();
+            return result;
         }
 
-        private bool VerifyPosition(Point[] clone)
+        private Result VerifyPosition(Point[] clone)
         {
             foreach(var p in clone)
             {
-                if (p.X < 0 || p.Y < 0 || p.X >= Field.Width || p.Y >= Field.Heigth)
-                    return false;
+                if (p.Y >= Field.Heigth)
+                    return Result.DOWN_BORDER_STRIKE;
+                else if (p.X >= Field.Width || p.X < 0 || p.Y < 0)
+                    return Result.BORDER_STRIKE;
+                else if (Field.CheckStrike(p))
+                    return Result.HEAP_STRIKE;
 
             }
-            return true;
+            return Result.SUCCESS;
         }
 
         public void Move(Point[] clone, Direction dir)
@@ -62,23 +66,26 @@ namespace Tetris
             var newPoints = new Point[numberPointsFigure];
             for (int i = 0; i < numberPointsFigure; i++)
             {
-                newPoints[i] = new Point(points[i]);
+                newPoints[i] = new Point(Points[i]);
 
             }
             return newPoints;
         }
 
-        internal void TryRotate()
+        internal Result TryRotate()
         {
             Hide();
             var clone = Clone();
             Rotate(clone);
 
-            if (VerifyPosition(clone))
-                points = clone;
+            var result = VerifyPosition(clone);
+            if (result == Result.SUCCESS)
+                Points = clone;
 
 
             Draw();
+
+            return result;
         }
 
         public abstract void Rotate(Point[] clone);
