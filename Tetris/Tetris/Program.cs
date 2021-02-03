@@ -27,6 +27,9 @@ namespace Tetris
 
 
 
+            Test();
+
+
             while (true)
                  {
                     if (Console.KeyAvailable)
@@ -39,6 +42,11 @@ namespace Tetris
 
                 }
             }
+        }
+
+        private static void Test()
+        {
+            DrawerProvider.Drawer.DrawPoint(4, 5);
         }
 
         private static void SetTimer()
