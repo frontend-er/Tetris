@@ -63,14 +63,35 @@ namespace Tetris
         {
             if (result == Result.HEAP_STRIKE || result == Result.DOWN_BORDER_STRIKE)
             {
+
                 Field.AddFigure(currentFigure);
                 Field.TryToDeleteLine();
-                currentFigure = generator.GetNewFigure();
-                return true;
+
+                if(currentFigure.IsOnTop())
+                {
+                    WriteGameOver();
+                    aTimer.Elapsed -= OnTimedEvent;
+                    return true;
+                }
+                else
+                {
+
+                    currentFigure = generator.GetNewFigure();
+                    return true;
+                }
+
 
             }
             else
                 return false;
+        }
+
+        private static void WriteGameOver()
+        {
+            Console.SetCursorPosition(Field.Width / 2 - 8, Field.Heigth / 2);
+            Console.WriteLine("G A M E  O V E R");
+            Console.SetCursorPosition(0, 0);
+
         }
 
         private static Result HandleKey(Figure currentFigure, ConsoleKey key)

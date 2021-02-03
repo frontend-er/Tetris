@@ -88,6 +88,11 @@ namespace Tetris
             return result;
         }
 
+        internal bool IsOnTop()
+        {
+            return Points[0].Y == 0;
+        }
+
         public abstract void Rotate(Point[] clone);
 
 
