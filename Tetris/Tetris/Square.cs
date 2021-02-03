@@ -17,7 +17,7 @@ namespace Tetris
           
         }
 
-        public override void Rotate(Point[] clone)
+        public override void Rotate()
         {
 
         }

@@ -104,6 +104,7 @@ namespace Tetris
                     return currentFigure.TryMove(Direction.Right);
                 case ConsoleKey.DownArrow:
                     return currentFigure.TryMove(Direction.Down);
+   
                 case ConsoleKey.Spacebar:
                     return currentFigure.TryRotate();
 
