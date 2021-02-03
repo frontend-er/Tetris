@@ -1,35 +1,62 @@
 ﻿using System;
 using System.Threading;
+using System.Timers;
 
 namespace Tetris
 {
     class Program
     {
+        const int TIMER_INTERVAL = 500;
+        static System.Timers.Timer aTimer;
+
+        static private Object _lockObject = new object(); 
 
         static FirureGenerator generator;
+        static Figure currentFigure;
+
+
         static void Main(string[] args)
         {
 
             Console.SetWindowSize(Field.Width, Field.Heigth);
             Console.SetBufferSize(Field.Width, Field.Heigth);
 
-           
-
-
-
             generator = new FirureGenerator(Field.Width/2, 0, Drawer.DEFAULT_POINT);
-            Figure currentFigure = generator.GetNewFigure();
+            currentFigure = generator.GetNewFigure();
+            SetTimer();
 
 
-                 while (true)
+
+            while (true)
                  {
                     if (Console.KeyAvailable)
                     {
                         var key = Console.ReadKey();
+                        Monitor.Enter(_lockObject);
                         var result = HandleKey(currentFigure, key.Key);
                         ProcessResult(result, ref currentFigure);
-                    }
-                 }
+                        Monitor.Exit(_lockObject);
+
+                }
+            }
+        }
+
+        private static void SetTimer()
+        {
+            aTimer = new System.Timers.Timer(TIMER_INTERVAL);
+            aTimer.Elapsed += OnTimedEvent;
+            aTimer.AutoReset = true;
+            aTimer.Enabled = true;
+        }
+
+
+        private static void OnTimedEvent(Object source, ElapsedEventArgs e)
+        {
+            Monitor.Enter(_lockObject);
+            var result = currentFigure.TryMove(Direction.Down);
+            ProcessResult(result, ref currentFigure);
+            Monitor.Exit(_lockObject);
+
         }
 
         private static bool ProcessResult(Result result, ref Figure currentFigure)
