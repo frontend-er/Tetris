@@ -18,16 +18,13 @@ namespace Tetris
         static void Main(string[] args)
         {
 
-            Console.SetWindowSize(Field.Width, Field.Heigth);
-            Console.SetBufferSize(Field.Width, Field.Heigth);
 
-            generator = new FirureGenerator(Field.Width/2, 0, Drawer.DEFAULT_POINT);
+            DrawerProvider.Drawer.InitField();
+
+            generator = new FirureGenerator(Field.Width/2, 0);
             currentFigure = generator.GetNewFigure();
             SetTimer();
 
-
-
-            Test();
 
 
             while (true)
@@ -77,7 +74,7 @@ namespace Tetris
 
                 if(currentFigure.IsOnTop())
                 {
-                    WriteGameOver();
+                    DrawerProvider.Drawer.WriteGameOver();
                     aTimer.Elapsed -= OnTimedEvent;
                     return true;
                 }
@@ -94,13 +91,7 @@ namespace Tetris
                 return false;
         }
 
-        private static void WriteGameOver()
-        {
-            Console.SetCursorPosition(Field.Width / 2 - 8, Field.Heigth / 2);
-            Console.WriteLine("G A M E  O V E R");
-            Console.SetCursorPosition(0, 0);
-
-        }
+    
 
         private static Result HandleKey(Figure currentFigure, ConsoleKey key)
         {

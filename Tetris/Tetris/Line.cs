@@ -6,12 +6,12 @@ namespace Tetris
 {
     class Line : Figure
     {
-        public Line (int x, int y, char c)
+        public Line (int x, int y)
         {
-            Points[0] = new Point(x, y, c);
-            Points[1] = new Point(x, y + 1, c);
-            Points[2] = new Point(x, y + 2, c);
-            Points[3] = new Point(x, y + 3, c);
+            Points[0] = new Point(x, y );
+            Points[1] = new Point(x, y + 1);
+            Points[2] = new Point(x, y + 2);
+            Points[3] = new Point(x, y + 3);
             Draw();
         }
 

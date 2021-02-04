@@ -12,31 +12,26 @@ namespace Tetris
 
         public void Draw()
         {
-            Console.SetCursorPosition(X, Y);
-            Console.Write(C);
-            Console.SetCursorPosition(0, 0);
+            DrawerProvider.Drawer.DrawPoint(X, Y);
 
         }
 
-        public Point(int a, int b, char symb)
+        public Point(int a, int b)
         {
             X = a;
             Y = b;
-            C = symb;
         }
 
         public Point(Point point)
         {
             this.X = point.X;
             this.Y = point.Y;
-            this.C = point.C;
 
         }
 
         internal void Hide()
         {
-            Console.SetCursorPosition(X, Y);
-            Console.Write(" ");
+            DrawerProvider.Drawer.HidePoint(X, Y);
         }
 
         internal void Move(Direction dir)

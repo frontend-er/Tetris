@@ -6,27 +6,24 @@ namespace Tetris
     {
         private int _x;
         private int _y;
-        private char _c;
 
         private Random _rand = new Random();
 
-        public FirureGenerator(int x, int y, char c)
+        public FirureGenerator(int x, int y)
         {
             _x = x;
             _y = y;
-            _c = c;
-
         }
 
         public Figure GetNewFigure()
         {
             if(_rand.Next(0,2) == 0)
             {
-                return new Square(_x, _y, _c);
+                return new Square(_x, _y);
             }
             else
             {
-                return new Line(_x, _y, _c);
+                return new Line(_x, _y);
             }
         }
     }

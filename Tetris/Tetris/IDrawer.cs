@@ -10,5 +10,9 @@ namespace Tetris
 
         void HidePoint(int x, int y);
 
+        void WriteGameOver();
+
+        void InitField();
+
     }
 }
